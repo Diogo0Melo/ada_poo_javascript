@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Source Code Pro', 'Gill Sans', 'Gill Sans MT', monospace;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+            height: 100vh;
+            background-color: #181C23;
+            margin: auto;
+        }
+
+        #logo {
+            text-align: center;
+            color: #A6F750;
+        }
+
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+
+        #containerLogin,
+        #containerSignup {
+            flex-basis: 45%;
+            padding: 20px;
+        }
+
+        #containerConta {
+            align-self: center;
+            max-width: 45%;
+        }
+
+        #containerLogin form,
+        #containerSignup form,
+        #containerConta form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="button"],
+        button {
+            background-color: #181C23;
+            color: #ccc;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input[type="button"],
+        button {
+            color: #A6F750;
+            border: 1px solid #A6F750;
+            background-color: #181C23;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #containerConta {
+            text-align: center;
+        }
+
+        img {
+            height: 8rem;
+            margin: .5rem;
+            justify-self: center;
+        }
+
+        label {
+            color: #ccc;
+        }
+
+        #mensagem {
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #A6F750;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        p {
+            color: #ccc;
+            font-size: 16px;
+        }
+    </style>
+    <title></title>
+</head>
+
+<body>
+    <div id="mensagem">
+        <h2>MENSAGEM DE SUCESSO OU ERRO</h2>
+    </div>
+    <div id="logo">
+        <h1>INSERIR NOME/LOGO DE QUALIDADE DUVIDOSA</h1>
+    </div>
+    <div id="container">
+        <div id="containerLogin">
+            <form>
+                <label for="login-agencia">Informe a agência</label>
+                <input type="text" id="login-agencia" value="0096" required>
+                <label for="login-cpf">Informe o cpf</label>
+                <input type="text" id="login-cpf" required>
+                <label for="login-senha">Informe a senha</label>
+                <input type="password" id="login-senha" required>
+                <input type="button" value="Entrar" onclick="Metodos.login()">
+            </form>
+        </div>
+        <div id="containerSignup">
+            <form>
+                <label for="signup-nome">Informe o nome</label>
+                <input type="text" id="signup-nome" required>
+                <label for="signup-cpf">Informe o cpf</label>
+                <input type="text" id="signup-cpf" required>
+                <label for="signup-senha">Informe a senha</label>
+                <input type="password" id="signup-senha" required>
+                <input type="button" value="Cadastrar" onclick="Metodos.cadastraConta()">
+            </form>
+        </div>
+    </div>
+    <div id="containerConta">
+        <div>
+            <img src="./profile_picture.png" alt="">
+            <p id="infomacoesDaConta"></p>
+            <form>
+                <label for="depositar">Informe o valor que quer depositar</label>
+                <input type="text" id="depositar">
+                <label for="sacar">Informe o valor que quer sacar</label>
+                <input type="text" id="sacar">
+                <label for="transferir">Informe o valor e a conta para transferir</label>
+                <input type="text" id="transferir">
+                <input type="text" id="transferirConta">
+                <input type="button" onclick="Metodos.acoesConta()" value="Executar"></input>
+            </form>
+            <button id="sair" onclick="Metodos.sair()">Sair</button>
+        </div>
+    </div>
+</body>
+
+</html>
