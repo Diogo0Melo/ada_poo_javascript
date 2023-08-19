@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Source Code Pro", "Gill Sans", "Gill Sans MT", monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    height: 100vh;
+    background-color: #181c23;
+    margin: auto;
+}
+
+#logo {
+    text-align: center;
+    color: #a6f750;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#containerLogin,
+#containerSignup {
+    flex-basis: 45%;
+    padding: 20px;
+}
+
+#containerConta {
+    align-self: center;
+    max-width: 45%;
+}
+
+#containerLogin form,
+#containerSignup form,
+#containerConta form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="button"],
+button {
+    background-color: transparent;
+    color: #ccc;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="button"],
+button {
+    color: #a6f750;
+    border: 1px solid #a6f750;
+    background-color: #181c23;
+    cursor: pointer;
+}
+
+input[type="button"]:hover,
+button:hover {
+    border: 1px solid #2a89ee;
+    color: #2a89ee;
+}
+
+#containerConta {
+    text-align: center;
+}
+
+img {
+    height: 8rem;
+    margin: 0.5rem;
+    justify-self: center;
+}
+
+label {
+    color: #ccc;
+}
+
+#mensagem {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #a6f750;
+    font-weight: bold;
+    text-align: center;
+}
+
+p {
+    color: #ccc;
+    font-size: 16px;
+}
+
+#mudarTema {
+    position: absolute;
+    top: 1px;
+    height: 30px;
+    border: none;
+}
+
+/* Cor de fundo do autocomplete */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #181c23 inset;
+}
+
+/* Cor do texto do autocomplete */
+input:-webkit-autofill {
+    -webkit-text-fill-color: #ccc !important;
+}

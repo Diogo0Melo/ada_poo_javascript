@@ -10,115 +10,30 @@
         href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
     <script src="script.js" defer></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Source Code Pro', 'Gill Sans', 'Gill Sans MT', monospace;
+    <script defer>
+        const lightTheme = document.createElement('link')
+        const darkTheme = document.createElement('link')
+        let theme = true
+        lightTheme.rel = 'stylesheet'
+        lightTheme.href = 'light.css'
+        document.head.appendChild(lightTheme)
+        function mudarTema() {
+            if (theme) {
+                document.head.removeChild(lightTheme)
+                darkTheme.rel = 'stylesheet'
+                darkTheme.href = 'dark.css'
+                document.head.appendChild(darkTheme)
+                theme = false
+            } else {
+                document.head.removeChild(darkTheme)
+                lightTheme.rel = 'stylesheet'
+                lightTheme.href = 'light.css'
+                document.head.appendChild(lightTheme)
+                theme = true
+            }
         }
+    </script>
 
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 2rem;
-            height: 100vh;
-            background-color: #181C23;
-            margin: auto;
-        }
-
-        #logo {
-            text-align: center;
-            color: #A6F750;
-        }
-
-        #container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60%;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-
-        #containerLogin,
-        #containerSignup {
-            flex-basis: 45%;
-            padding: 20px;
-        }
-
-        #containerConta {
-            align-self: center;
-            max-width: 45%;
-        }
-
-        #containerLogin form,
-        #containerSignup form,
-        #containerConta form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="button"],
-        button {
-            background-color: #181C23;
-            color: #ccc;
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        input[type="button"],
-        button {
-            color: #A6F750;
-            border: 1px solid #A6F750;
-            background-color: #181C23;
-            cursor: pointer;
-        }
-
-        input[type="button"]:hover,
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #containerConta {
-            text-align: center;
-        }
-
-        img {
-            height: 8rem;
-            margin: .5rem;
-            justify-self: center;
-        }
-
-        label {
-            color: #ccc;
-        }
-
-        #mensagem {
-            display: flex;
-            position: relative;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #A6F750;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        p {
-            color: #ccc;
-            font-size: 16px;
-        }
-    </style>
     <title></title>
 </head>
 
@@ -170,6 +85,7 @@
             <button id="sair" onclick="Metodos.sair()">Sair</button>
         </div>
     </div>
+    <button onclick="mudarTema()" id="mudarTema"></button>
 </body>
 
 </html>
