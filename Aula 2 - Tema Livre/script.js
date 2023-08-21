@@ -184,8 +184,8 @@ class Funcoes {
             Funcoes.tempoDaMensagem();
             return true;
         }
-        const regexNome = /^[A-Z]{1}[a-z]{2,20}/g;
-        if (nome.length < 3 || !regexNome.test(nome)) {
+        const regexNome = /^[A-Z]{1}[a-z]{2,20}$/g;
+        if (!regexNome.test(nome)) {
             mensagem.innerHTML = `<h2 style="color: red;">Nome muito curto ou inválido!</h2>`;
             mensagem.style.opacity = 1;
 
@@ -220,5 +220,3 @@ const mensagem = document.querySelector("#mensagem");
 const containerGeral = document.querySelector("#container");
 const containerContaUsuario = document.querySelector("#containerConta");
 const contas = [];
-containerContaUsuario.style.display = "none";
-mensagem.style.opacity = 0;
