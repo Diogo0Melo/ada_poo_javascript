@@ -13,11 +13,11 @@ class Conta {
         this.#cpf = cpf;
         this.#senha = senhaString;
         this.#saldo = 0;
-        if (Metodos.validacoes(nome, cpf, senhaString)) throw "Nenhuma conta foi cadastrada!";
+        if (Funcoes.validacoes(nome, cpf, senhaString)) throw "Nenhuma conta foi cadastrada!";
         contas.push(this);
         mensagem.innerHTML = `<h2>Conta criada com sucesso! Faça login para acessar</h2>`;
         mensagem.style.opacity = 1;
-        Metodos.tempoDaMensagem();
+        Funcoes.tempoDaMensagem();
     }
     get agencia() {
         return this.#agencia;
@@ -38,11 +38,11 @@ class Conta {
         const senha = document.querySelector("#login-senha").value;
         if (this.#senha === senha) {
             containerGeral.style.display = "none";
-
+            const idFormatado = this.id.toString().padStart(4, "0");
             document.querySelector("#infomacoesDaConta").innerHTML = `
-                Agência/Conta: ${this.agencia}/${this.id.toString().padStart(4, "0")}<br>
+                Agência/Conta: ${this.agencia}/${idFormatado}<br>
                 Nome: ${this.nome} - CPF: ${this.cpf}<br>
-                Saldo: ${this.saldo}
+                Saldo: R$ ${this.saldo}<br>
                 `;
 
             containerContaUsuario.style.display = "block";
@@ -52,14 +52,14 @@ class Conta {
         mensagem.innerHTML = `<h2 style="color: red;">CPF ou senha incorretos!</h2>`;
         mensagem.style.opacity = 1;
 
-        Metodos.tempoDaMensagem();
+        Funcoes.tempoDaMensagem();
     }
     sacar(valor) {
         if (this.saldo < valor) {
             mensagem.innerHTML = `<h2 style="color: red;">Saldo insuficiente!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             throw "Saldo insuficiente!";
         }
         this.saldo -= valor;
@@ -71,78 +71,117 @@ class Conta {
         if (contaDestino === this) {
             mensagem.innerHTML = `<h2 style="color: orange;">Você não pode transferir para a mesma conta</h2>`;
             mensagem.style.opacity = 1;
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             throw "Você não pode transferir para a mesma conta!";
         }
         this.sacar(valor);
         contaDestino.depositar(valor);
     }
 }
-class Metodos {
-    static cadastraConta() {
+class Funcoes {
+    static cadastrarConta() {
         const nome = document.querySelector("#signup-nome").value;
         const cpf = document.querySelector("#signup-cpf").value;
         const senha = document.querySelector("#signup-senha").value;
         new Conta(nome, cpf, senha);
     }
-    static login() {
+    static acessarConta() {
         const cpf = document.querySelector("#login-cpf").value;
         const conta = contas.find((conta) => conta.cpf === cpf);
         if (conta === undefined) {
             mensagem.innerHTML = `<h2 style="color: red;">CPF ou senha incorretos!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             return;
         }
         conta.login(conta);
+        return conta;
+    }
+    static voltar() {
+        const forms = document.querySelectorAll("#depositarForm, #sacarForm, #transferirForm");
+        const acoesDaConta = document.querySelector("#acoesDaConta");
+        forms.forEach((form) => {
+            form.style.display = "none";
+        });
+        acoesDaConta.style.display = "block";
     }
     static sair() {
         containerContaUsuario.style.display = "none";
-        containerGeral.style.display = "block";
+        containerGeral.style.display = "flex";
     }
-    static acoesConta() {
-        const cpf = document.querySelector("#login-cpf").value;
-        const conta = contas.find((conta) => conta.cpf === cpf);
+    static depositarOpcao() {
+        document.querySelector("#acoesDaConta").style.display = "none";
+        document.querySelector("#depositarForm").style.display = "block";
+    }
+    static sacarOpcao() {
+        document.querySelector("#acoesDaConta").style.display = "none";
+        document.querySelector("#sacarForm").style.display = "block";
+    }
+    static transferirOpcao() {
+        document.querySelector("#acoesDaConta").style.display = "none";
+        document.querySelector("#transferirForm").style.display = "block";
+    }
+    static depositarAcao() {
+        const conta = this.acessarConta();
         const depositar = +document.querySelector("#depositar").value;
-        const sacar = +document.querySelector("#sacar").value;
-        const transferir = +document.querySelector("#transferir").value;
-        const cpfContaDestino = document.querySelector("#transferirConta").value;
-        const contaDestino = contas.find((conta) => conta.cpf === cpfContaDestino);
         if (depositar > 0) {
             conta.depositar(depositar);
             mensagem.innerHTML = `<h2>Depósito realizado com sucesso!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
+            conta.login(conta);
+        } else {
+            mensagem.innerHTML = `<h2 style="color: red;">Erro ao depositar!</h2>`;
+            mensagem.style.opacity = 1;
+            Funcoes.tempoDaMensagem();
         }
+    }
+    static sacarAcao() {
+        const conta = this.acessarConta();
+        const sacar = +document.querySelector("#sacar").value;
         if (sacar > 0) {
             conta.sacar(sacar);
             mensagem.innerHTML = `<h2>Saque realizado com sucesso!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
+            conta.login(conta);
+        } else {
+            mensagem.innerHTML = `<h2 style="color: red;">Erro ao sacar!</h2>`;
+            mensagem.style.opacity = 1;
+            Funcoes.tempoDaMensagem();
         }
+    }
+    static transferirAcao() {
+        const conta = this.acessarConta();
+        const transferir = +document.querySelector("#transferir").value;
+        const cpfContaDestino = document.querySelector("#transferirConta").value;
+        const contaDestino = contas.find((conta) => conta.cpf === cpfContaDestino);
         if (transferir > 0 && contaDestino !== undefined) {
             mensagem.innerHTML = `<h2>Transferência realizada com sucesso!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             conta.transferir(contaDestino, transferir);
+            conta.login(conta);
         } else if (contaDestino === undefined && transferir > 0) {
             mensagem.innerHTML = `<h2 style="color: red;">Conta de destino não encontrada!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
+        } else {
+            mensagem.innerHTML = `<h2 style="color: red;">Erro ao transferir!</h2>`;
+            mensagem.style.opacity = 1;
         }
-        conta.login();
     }
     static validacoes(nome, cpf, senha) {
         if (!nome || !cpf || !senha) {
             mensagem.innerHTML = `<h2 style="color: red;">Preencha todos os campos!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             return true;
         }
         const regexNome = /^[A-Z]{1}[a-z]{2,20}/g;
@@ -150,7 +189,7 @@ class Metodos {
             mensagem.innerHTML = `<h2 style="color: red;">Nome muito curto ou inválido!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             return true;
         }
         const cpfUtilizado = contas.find((conta) => conta.cpf === cpf);
@@ -159,14 +198,14 @@ class Metodos {
             mensagem.innerHTML = `<h2 style="color: red;">CPF inválido!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             return true;
         }
         if (senha.includes(" ")) {
             mensagem.innerHTML = `<h2 style="color: red;">A senha não pode conter espaços!</h2>`;
             mensagem.style.opacity = 1;
 
-            Metodos.tempoDaMensagem();
+            Funcoes.tempoDaMensagem();
             return true;
         }
         return false;

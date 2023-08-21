@@ -2,38 +2,37 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
     <script src="script.js" defer></script>
     <script defer>
-        const lightTheme = document.createElement('link')
-        const darkTheme = document.createElement('link')
-        let theme = true
-        lightTheme.rel = 'stylesheet'
-        lightTheme.href = 'light.css'
-        document.head.appendChild(lightTheme)
+        const lightTheme = document.createElement("link");
+        const darkTheme = document.createElement("link");
+        let theme = true;
+        lightTheme.rel = "stylesheet";
+        lightTheme.href = "light.css";
+        document.head.appendChild(lightTheme);
         function mudarTema() {
             if (theme) {
-                document.head.removeChild(lightTheme)
-                darkTheme.rel = 'stylesheet'
-                darkTheme.href = 'dark.css'
-                document.head.appendChild(darkTheme)
-                theme = false
+                document.head.removeChild(lightTheme);
+                darkTheme.rel = "stylesheet";
+                darkTheme.href = "dark.css";
+                document.head.appendChild(darkTheme);
+                theme = false;
             } else {
-                document.head.removeChild(darkTheme)
-                lightTheme.rel = 'stylesheet'
-                lightTheme.href = 'light.css'
-                document.head.appendChild(lightTheme)
-                theme = true
+                document.head.removeChild(darkTheme);
+                lightTheme.rel = "stylesheet";
+                lightTheme.href = "light.css";
+                document.head.appendChild(lightTheme);
+                theme = true;
             }
         }
     </script>
-
     <title></title>
 </head>
 
@@ -48,41 +47,60 @@
         <div id="containerLogin">
             <form>
                 <label for="login-agencia">Informe a agência</label>
-                <input type="text" id="login-agencia" value="0096" required>
+                <input type="text" id="login-agencia" value="0096" required />
                 <label for="login-cpf">Informe o cpf</label>
-                <input type="text" id="login-cpf" required>
+                <input type="text" id="login-cpf" required />
                 <label for="login-senha">Informe a senha</label>
-                <input type="password" id="login-senha" required>
-                <input type="button" value="Entrar" onclick="Metodos.login()">
+                <input type="password" id="login-senha" required />
+                <input type="button" value="Entrar" onclick="Funcoes.acessarConta()" />
             </form>
         </div>
         <div id="containerSignup">
             <form>
                 <label for="signup-nome">Informe o nome</label>
-                <input type="text" id="signup-nome" required>
+                <input type="text" id="signup-nome" required />
                 <label for="signup-cpf">Informe o cpf</label>
-                <input type="text" id="signup-cpf" required>
+                <input type="text" id="signup-cpf" required />
                 <label for="signup-senha">Informe a senha</label>
-                <input type="password" id="signup-senha" required>
-                <input type="button" value="Cadastrar" onclick="Metodos.cadastraConta()">
+                <input type="password" id="signup-senha" required />
+                <input type="button" value="Cadastrar" onclick="Funcoes.cadastrarConta()" />
             </form>
         </div>
     </div>
     <div id="containerConta">
         <div>
-            <img src="./profile_picture.png" alt="">
+            <img src="./profile_picture.png" alt="" />
             <p id="infomacoesDaConta"></p>
-            <form>
-                <label for="depositar">Informe o valor que quer depositar</label>
-                <input type="text" id="depositar">
-                <label for="sacar">Informe o valor que quer sacar</label>
-                <input type="text" id="sacar">
-                <label for="transferir">Informe o valor e a conta para transferir</label>
-                <input type="text" id="transferir">
-                <input type="text" id="transferirConta">
-                <input type="button" onclick="Metodos.acoesConta()" value="Executar"></input>
+            <br>
+            <div id="acoesDaConta">
+                <button onclick="Funcoes.depositarOpcao()">Depositar</button>
+                <button onclick="Funcoes.sacarOpcao()">Sacar</button>
+                <button onclick="Funcoes.transferirOpcao()">Transferir</button>
+                <button onclick="Funcoes.sair()">Sair</button>
+            </div>
+
+            <form id="depositarForm" style="display: none">
+                <label for="depositar">Informe o valor para depositar</label>
+                <input type="text" id="depositar" />
+                <button type="reset" onclick="Funcoes.depositarAcao()">Depositar</button>
+                <button type="reset" onclick="Funcoes.voltar()">Voltar</button>
             </form>
-            <button id="sair" onclick="Metodos.sair()">Sair</button>
+
+            <form id="sacarForm" style="display: none">
+                <label for="sacar">Informe o valor para sacar</label>
+                <input type="text" id="sacar" />
+                <button type="reset" onclick="Funcoes.sacarAcao()">Sacar</button>
+                <button type="reset" onclick="Funcoes.voltar()">Voltar</button>
+            </form>
+
+            <form id="transferirForm" style="display: none">
+                <label for="transferir">Informe o valor para transferir</label>
+                <input type="text" id="transferir" />
+                <label for="transferirConta">Informe o CPF da conta para transferir</label>
+                <input type="text" id="transferirConta" />
+                <button type="reset" onclick="Funcoes.transferirAcao()">Transferir</button>
+                <button type="reset" onclick="Funcoes.voltar()">Voltar</button>
+            </form>
         </div>
     </div>
     <button onclick="mudarTema()" id="mudarTema"></button>
