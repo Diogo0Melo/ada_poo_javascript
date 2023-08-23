@@ -13,7 +13,8 @@ class Conta {
         this.#cpf = cpf;
         this.#senha = senhaString;
         this.#saldo = 0;
-        if (Funcoes.validacoes(nome, cpf, senhaString)) throw "Nenhuma conta foi cadastrada!";
+        if (Funcoes.validacoes(nome, cpf, senhaString))
+            throw "Nenhuma conta foi cadastrada!";
         contas.push(this);
         mensagem.innerHTML = `<h2>Conta criada com sucesso! Faça login para acessar</h2>`;
         mensagem.style.opacity = 1;
@@ -98,32 +99,8 @@ class Funcoes {
         conta.login(conta);
         return conta;
     }
-    static voltar() {
-        const forms = document.querySelectorAll("#depositarForm, #sacarForm, #transferirForm");
-        const acoesDaConta = document.querySelector("#acoesDaConta");
-        forms.forEach((form) => {
-            form.style.display = "none";
-        });
-        acoesDaConta.style.display = "block";
-    }
-    static sair() {
-        containerContaUsuario.style.display = "none";
-        containerGeral.style.display = "flex";
-    }
-    static depositarOpcao() {
-        document.querySelector("#acoesDaConta").style.display = "none";
-        document.querySelector("#depositarForm").style.display = "block";
-    }
-    static sacarOpcao() {
-        document.querySelector("#acoesDaConta").style.display = "none";
-        document.querySelector("#sacarForm").style.display = "block";
-    }
-    static transferirOpcao() {
-        document.querySelector("#acoesDaConta").style.display = "none";
-        document.querySelector("#transferirForm").style.display = "block";
-    }
-    static depositarAcao() {
-        const conta = this.acessarConta();
+    static depositar() {
+        const conta = this.opcoesDaConta();
         const depositar = +document.querySelector("#depositar").value;
         if (depositar > 0) {
             conta.depositar(depositar);
@@ -132,14 +109,14 @@ class Funcoes {
 
             Funcoes.tempoDaMensagem();
             conta.login(conta);
-        } else {
-            mensagem.innerHTML = `<h2 style="color: red;">Erro ao depositar!</h2>`;
-            mensagem.style.opacity = 1;
-            Funcoes.tempoDaMensagem();
+            return;
         }
+        mensagem.innerHTML = `<h2 style="color: red;">Erro ao depositar!</h2>`;
+        mensagem.style.opacity = 1;
+        Funcoes.tempoDaMensagem();
     }
-    static sacarAcao() {
-        const conta = this.acessarConta();
+    static sacar() {
+        const conta = this.opcoesDaConta();
         const sacar = +document.querySelector("#sacar").value;
         if (sacar > 0) {
             conta.sacar(sacar);
@@ -148,17 +125,20 @@ class Funcoes {
 
             Funcoes.tempoDaMensagem();
             conta.login(conta);
-        } else {
-            mensagem.innerHTML = `<h2 style="color: red;">Erro ao sacar!</h2>`;
-            mensagem.style.opacity = 1;
-            Funcoes.tempoDaMensagem();
+            return;
         }
+        mensagem.innerHTML = `<h2 style="color: red;">Erro ao sacar!</h2>`;
+        mensagem.style.opacity = 1;
+        Funcoes.tempoDaMensagem();
     }
-    static transferirAcao() {
-        const conta = this.acessarConta();
+    static transferir() {
+        const conta = this.opcoesDaConta();
         const transferir = +document.querySelector("#transferir").value;
-        const cpfContaDestino = document.querySelector("#transferirConta").value;
-        const contaDestino = contas.find((conta) => conta.cpf === cpfContaDestino);
+        const cpfContaDestino =
+            document.querySelector("#transferirConta").value;
+        const contaDestino = contas.find(
+            (conta) => conta.cpf === cpfContaDestino
+        );
         if (transferir > 0 && contaDestino !== undefined) {
             mensagem.innerHTML = `<h2>Transferência realizada com sucesso!</h2>`;
             mensagem.style.opacity = 1;
@@ -214,6 +194,46 @@ class Funcoes {
         setTimeout(() => {
             mensagem.style.opacity = 0;
         }, 3000);
+    }
+}
+class Html {
+    static tema = true;
+    static opcoesDaConta = document.querySelector("#opcoesDaConta").style;
+    static mudarTema() {
+        const temaId = document.querySelector("#tema");
+        if (Html.tema) {
+            temaId.href = "dark.css";
+            Html.tema = false;
+        } else {
+            temaId.href = "light.css";
+            Html.tema = true;
+        }
+    }
+    static depositarOpcao() {
+        Html.opcoesDaConta.display = "none";
+        document.querySelector("#depositarForm").style.display = "block";
+    }
+    static sacarOpcao() {
+        Html.opcoesDaConta.display = "none";
+        document.querySelector("#sacarForm").style.display = "block";
+    }
+    static transferirOpcao() {
+        Html.opcoesDaConta.display = "none";
+        document.querySelector("#transferirForm").style.display = "block";
+    }
+    static voltar() {
+        const forms = document.querySelectorAll(
+            "#depositarForm, #sacarForm, #transferirForm"
+        );
+
+        forms.forEach((form) => {
+            form.style.display = "none";
+        });
+        Html.opcoesDaConta.display = "block";
+    }
+    static sair() {
+        containerContaUsuario.style.display = "none";
+        containerGeral.style.display = "flex";
     }
 }
 const mensagem = document.querySelector("#mensagem");

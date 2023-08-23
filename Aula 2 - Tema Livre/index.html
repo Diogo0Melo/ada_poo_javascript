@@ -1,109 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="light.css" id="tema" />
+        <title></title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,900&display=swap"
-        rel="stylesheet" />
-    <script src="script.js" defer></script>
-    <script defer>
-        const lightTheme = document.createElement("link");
-        const darkTheme = document.createElement("link");
-        let theme = true;
-        lightTheme.rel = "stylesheet";
-        lightTheme.href = "light.css";
-        document.head.appendChild(lightTheme);
-        function mudarTema() {
-            if (theme) {
-                document.head.removeChild(lightTheme);
-                darkTheme.rel = "stylesheet";
-                darkTheme.href = "dark.css";
-                document.head.appendChild(darkTheme);
-                theme = false;
-            } else {
-                document.head.removeChild(darkTheme);
-                lightTheme.rel = "stylesheet";
-                lightTheme.href = "light.css";
-                document.head.appendChild(lightTheme);
-                theme = true;
-            }
-        }
-    </script>
-    <title></title>
-</head>
-
-<body>
-    <div id="mensagem" style="opacity: 0">
-        <h2>MENSAGEM DE SUCESSO OU ERRO</h2>
-    </div>
-    <div id="logo">
-        <h1>INSERIR NOME/LOGO DE QUALIDADE DUVIDOSA</h1>
-    </div>
-    <div id="container">
-        <div id="containerLogin">
-            <form>
-                <label for="login-agencia">Informe a agência</label>
-                <input type="text" id="login-agencia" value="0096" required />
-                <label for="login-cpf">Informe o cpf</label>
-                <input type="text" id="login-cpf" required />
-                <label for="login-senha">Informe a senha</label>
-                <input type="password" id="login-senha" required />
-                <input type="button" value="Entrar" onclick="Funcoes.acessarConta()" />
-            </form>
+    <body>
+        <div id="mensagem" style="opacity: 0">
+            <h2>MENSAGEM DE SUCESSO OU ERRO</h2>
         </div>
-        <div id="containerSignup">
-            <form>
-                <label for="signup-nome">Informe o nome</label>
-                <input type="text" id="signup-nome" required />
-                <label for="signup-cpf">Informe o cpf</label>
-                <input type="text" id="signup-cpf" required />
-                <label for="signup-senha">Informe a senha</label>
-                <input type="password" id="signup-senha" required />
-                <input type="button" value="Cadastrar" onclick="Funcoes.cadastrarConta()" />
-            </form>
+        <div id="logo">
+            <h1>INSERIR NOME/LOGO DE QUALIDADE DUVIDOSA</h1>
         </div>
-    </div>
-    <div id="containerConta" style="display: none">
-        <div>
-            <img src="./profile_picture.png" alt="" />
-            <p id="infomacoesDaConta"></p>
-            <br />
-            <div id="acoesDaConta">
-                <button onclick="Funcoes.depositarOpcao()">Depositar</button>
-                <button onclick="Funcoes.sacarOpcao()">Sacar</button>
-                <button onclick="Funcoes.transferirOpcao()">Transferir</button>
-                <button onclick="Funcoes.sair()">Sair</button>
+        <div id="container">
+            <div id="containerLogin">
+                <form>
+                    <label for="login-agencia">Informe a agência</label>
+                    <input type="text" id="login-agencia" value="0096" />
+                    <label for="login-cpf">Informe o cpf</label>
+                    <input type="text" id="login-cpf" />
+                    <label for="login-senha">Informe a senha</label>
+                    <input type="password" id="login-senha" />
+                    <input
+                        type="button"
+                        value="Entrar"
+                        onclick="Funcoes.acessarConta()"
+                    />
+                </form>
             </div>
-
-            <form id="depositarForm" style="display: none">
-                <label for="depositar">Informe o valor para depositar</label>
-                <input type="text" id="depositar" />
-                <button type="reset" onclick="Funcoes.depositarAcao()">Depositar</button>
-                <button type="reset" onclick="Funcoes.voltar()">Voltar</button>
-            </form>
-
-            <form id="sacarForm" style="display: none">
-                <label for="sacar">Informe o valor para sacar</label>
-                <input type="text" id="sacar" />
-                <button type="reset" onclick="Funcoes.sacarAcao()">Sacar</button>
-                <button type="reset" onclick="Funcoes.voltar()">Voltar</button>
-            </form>
-
-            <form id="transferirForm" style="display: none">
-                <label for="transferir">Informe o valor para transferir</label>
-                <input type="text" id="transferir" />
-                <label for="transferirConta">Informe o CPF da conta para transferir</label>
-                <input type="text" id="transferirConta" />
-                <button type="reset" onclick="Funcoes.transferirAcao()">Transferir</button>
-                <button type="reset" onclick="Funcoes.voltar()">Voltar</button>
-            </form>
+            <div id="containerSignup">
+                <form>
+                    <label for="signup-nome">Informe o nome</label>
+                    <input type="text" id="signup-nome" />
+                    <label for="signup-cpf">Informe o cpf</label>
+                    <input type="text" id="signup-cpf" />
+                    <label for="signup-senha">Informe a senha</label>
+                    <input type="password" id="signup-senha" />
+                    <input
+                        type="button"
+                        value="Cadastrar"
+                        onclick="Funcoes.cadastrarConta()"
+                    />
+                </form>
+            </div>
         </div>
-    </div>
-    <button onclick="mudarTema()" id="mudarTema"></button>
-</body>
+        <div id="containerConta" style="display: none">
+            <div>
+                <img src="./profile_picture.png" alt="" />
+                <p id="infomacoesDaConta"></p>
+                <br />
+                <div id="opcoesDaConta">
+                    <button onclick="Html.depositarOpcao()">Depositar</button>
+                    <button onclick="Html.sacarOpcao()">Sacar</button>
+                    <button onclick="Html.transferirOpcao()">Transferir</button>
+                    <button onclick="Html.sair()">Sair</button>
+                </div>
 
+                <form id="depositarForm" style="display: none">
+                    <label for="depositar"
+                        >Informe o valor para depositar</label
+                    >
+                    <input type="text" id="depositar" />
+                    <button type="reset" onclick="Funcoes.depositar()">
+                        Depositar
+                    </button>
+                    <button type="reset" onclick="Html.voltar()">Voltar</button>
+                </form>
+
+                <form id="sacarForm" style="display: none">
+                    <label for="sacar">Informe o valor para sacar</label>
+                    <input type="text" id="sacar" />
+                    <button type="reset" onclick="Funcoes.sacar()">
+                        Sacar
+                    </button>
+                    <button type="reset" onclick="Html.voltar()">Voltar</button>
+                </form>
+
+                <form id="transferirForm" style="display: none">
+                    <label for="transferir"
+                        >Informe o valor para transferir</label
+                    >
+                    <input type="text" id="transferir" />
+                    <label for="transferirConta"
+                        >Informe o CPF da conta para transferir</label
+                    >
+                    <input type="text" id="transferirConta" />
+                    <button type="reset" onclick="Funcoes.transferir()">
+                        Transferir
+                    </button>
+                    <button type="reset" onclick="Html.voltar()">Voltar</button>
+                </form>
+            </div>
+        </div>
+        <button onclick="Html.mudarTema()" id="mudarTema"></button>
+    </body>
 </html>
