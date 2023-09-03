@@ -1,5 +1,6 @@
 class User {
-    constructor(name, balance = 0, canWork = Date.now(), isAdmin = false) {
+    constructor(id, name, balance = 0, canWork = Date.now(), isAdmin = false) {
+        this.id = id;
         this.name = name;
         this.balance = balance;
         this.canWork = canWork;
@@ -44,12 +45,12 @@ class User {
 }
 class Users extends Map {
     addUser(key, user) {
-        const [obj] = user;
         const newUser = new User(
-            obj.name,
-            obj.balance,
-            obj.canWork,
-            obj.isAdmin
+            user.id,
+            user.name,
+            user.balance,
+            user.canWork,
+            user.isAdmin
         );
 
         this.set(key, newUser);
