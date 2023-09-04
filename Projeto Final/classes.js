@@ -7,7 +7,7 @@ class User {
         this.isAdmin = isAdmin;
     }
     work(amount) {
-        if (this.canWork + 5000 <= Date.now()) {
+        if (this.canWork + 20_000 <= Date.now()) {
             this.balance += amount;
             this.canWork = Date.now();
             return true;
